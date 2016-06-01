@@ -1,6 +1,6 @@
 var express = require('express');
 var morgan = require('morgan');
-//var cfenv = require('cfenv');
+
 var passport = require('passport'); 
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -14,21 +14,14 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
  // define middleware
-//app.use(express.static(__dirname + '/views'));
 app.use(express.static(__dirname + '/views'));
-
 app.use(morgan('dev')); // log every request to the console
 
 app.use(cookieParser());
 app.use(session({resave: 'true', saveUninitialized: 'true' , secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session()); 
-//_________________________________
 
-var request_databaseDB_1 = require('./views/database')
-app.use('/database', request_databaseDB_1);
-
-//_________________________________
 passport.serializeUser(function(user, done) {
    done(null, user);
 }); 
@@ -60,35 +53,29 @@ var Strategy = new OpenIDConnectStrategy({
                  callbackURL : callback_url,
                  skipUserProfile: true,
                  issuer: issuer_id}, 
-	function(iss, sub, profile, accessToken, refreshToken, params, done)  {
-	         	process.nextTick(function() {
-		profile.accessToken = accessToken;
-		profile.refreshToken = refreshToken;
-		done(null, profile);
-         	})
+    function(iss, sub, profile, accessToken, refreshToken, params, done)  {
+                process.nextTick(function() {
+        profile.accessToken = accessToken;
+        profile.refreshToken = refreshToken;
+        done(null, profile);
+            })
 }); 
 
 passport.use(Strategy); 
 app.get('/login', passport.authenticate('openidconnect', {})); 
           
 function ensureAuthenticated(req, res, next) {
-	if(!req.isAuthenticated()) {
-	          	req.session.originalUrl = req.originalUrl;
-		res.redirect('/login');
-	} else {
-		return next();
-	}
+    if(!req.isAuthenticated()) {
+                req.session.originalUrl = req.originalUrl;
+        res.redirect('/login');
+    } else {
+        return next();
+    }
 }
 
 //define my route
 app.get('/', ensureAuthenticated, function(req, res) {
-    res.render('index');
- /*  var appEnv = cfenv.getAppEnv();
-   app.listen(appEnv.port, '0.0.0.0', function() {
-    // print a message when the server starts listening
-   console.log("server starting on " + appEnv.url);
-  });
-*/
+    res.render('admin');
 });
 
 app.get('/auth/sso/callback',function(req,res,next) {               
@@ -103,7 +90,5 @@ app.get('/failure', function(req, res) {
              res.send('login failed'); });
 
 app.listen(port);
-
-
 
 console.log('Admin Service launched! Listening on port '+ port);
