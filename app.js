@@ -10,20 +10,25 @@ var app = express();
 //var port = process.env.VCAP_APP_PORT || 5000;
 
 // view engine setup - configure
-//app.set('view engine', 'ejs');
-//app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
  // define middleware
 //app.use(express.static(__dirname + '/views'));
-app.use(express.static(__dirname + '/public'));
-var appEnv = cfenv.getAppEnv();
+app.use(express.static(__dirname + '/views'));
+
 app.use(morgan('dev')); // log every request to the console
 
 app.use(cookieParser());
 app.use(session({resave: 'true', saveUninitialized: 'true' , secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session()); 
+//_________________________________
 
+var request_databaseDB_1 = require('./views/database')
+app.use('/database', request_databaseDB_1);
+
+//_________________________________
 passport.serializeUser(function(user, done) {
    done(null, user);
 }); 
@@ -77,7 +82,12 @@ function ensureAuthenticated(req, res, next) {
 
 //define my route
 app.get('/', ensureAuthenticated, function(req, res) {
-	res.render('index');
+    res.render('index');
+   var appEnv = cfenv.getAppEnv();
+   app.listen(appEnv.port, '0.0.0.0', function() {
+    // print a message when the server starts listening
+   console.log("server starting on " + appEnv.url);
+  });
 });
 
 app.get('/auth/sso/callback',function(req,res,next) {               
@@ -87,17 +97,12 @@ app.get('/auth/sso/callback',function(req,res,next) {
                      failureRedirect: '/failure',                        
           })(req,res,next);
         });
-/*
+
 app.get('/failure', function(req, res) { 
              res.send('login failed'); });
 
 app.listen(port);
-*/
 
 
-app.listen(appEnv.port, '0.0.0.0', function() {
 
-    // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
-});
 //console.log('Admin Service launched! Listening on port '+ port);
