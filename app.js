@@ -74,7 +74,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 //define my route
-app.get('/*', ensureAuthenticated, function(req, res) {
+app.get('/', ensureAuthenticated, function(req, res) {
 	res.render('admin');
 });
 
