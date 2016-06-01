@@ -1,17 +1,17 @@
 var express = require('express');
 var morgan = require('morgan');
-
+var cfenv = require('cfenv');
 var passport = require('passport'); 
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 var app = express();
 
-var port = process.env.VCAP_APP_PORT || 5000;
+//var port = process.env.VCAP_APP_PORT || 5000;
 
 // view engine setup - configure
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+//app.set('view engine', 'ejs');
+//app.set('views', __dirname + '/views');
 
  // define middleware
 app.use(express.static(__dirname + '/views'));
@@ -85,10 +85,17 @@ app.get('/auth/sso/callback',function(req,res,next) {
                      failureRedirect: '/failure',                        
           })(req,res,next);
         });
-
+/*
 app.get('/failure', function(req, res) { 
              res.send('login failed'); });
 
 app.listen(port);
+*/
 
-console.log('Admin Service launched! Listening on port '+ port);
+var appEnv = cfenv.getAppEnv();
+app.listen(appEnv.port, '0.0.0.0', function() {
+
+    // print a message when the server starts listening
+  console.log("server starting on " + appEnv.url);
+});
+//console.log('Admin Service launched! Listening on port '+ port);
