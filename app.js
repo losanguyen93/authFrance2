@@ -83,11 +83,12 @@ function ensureAuthenticated(req, res, next) {
 //define my route
 app.get('/', ensureAuthenticated, function(req, res) {
     res.render('index');
-   var appEnv = cfenv.getAppEnv();
+ /*  var appEnv = cfenv.getAppEnv();
    app.listen(appEnv.port, '0.0.0.0', function() {
     // print a message when the server starts listening
    console.log("server starting on " + appEnv.url);
   });
+*/
 });
 
 app.get('/auth/sso/callback',function(req,res,next) {               
