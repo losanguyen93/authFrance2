@@ -1,6 +1,6 @@
 var express = require('express');
 var morgan = require('morgan');
-var cfenv = require('cfenv');
+//var cfenv = require('cfenv');
 var passport = require('passport'); 
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -106,4 +106,4 @@ app.listen(port);
 
 
 
-//console.log('Admin Service launched! Listening on port '+ port);
+console.log('Admin Service launched! Listening on port '+ port);
