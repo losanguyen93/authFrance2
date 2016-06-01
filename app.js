@@ -7,7 +7,7 @@ var session = require('express-session');
 
 var app = express();
 
-//var port = process.env.VCAP_APP_PORT || 5000;
+var port = process.env.VCAP_APP_PORT || 5000;
 
 // view engine setup - configure
 app.set('view engine', 'ejs');
