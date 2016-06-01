@@ -1,16 +1,21 @@
 {
-	"name": "NodejsStarterApp",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"express": "4.13.x",
-		"cfenv": "1.0.x"
-	},
-	"repository": {},
-	"engines": {
-		"node": "4.x"
-	} 
+  "name": "NodejsStarterApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "1.4.0",
+    "ejs": "^2.3.2",
+    "express": "4.13.x",
+    "express-session": "1.11.3",
+    "morgan": "^1.6.1",
+    "passport": "0.2.x",
+    "passport-idaas-openidconnect": "^1.1.2"
+  },
+  "repository": {},
+  "engines": {
+    "node": "4.x"
+  }
 }
