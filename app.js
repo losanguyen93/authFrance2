@@ -14,7 +14,9 @@ var app = express();
 //app.set('views', __dirname + '/views');
 
  // define middleware
-app.use(express.static(__dirname + '/views'));
+//app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/public'));
+var appEnv = cfenv.getAppEnv();
 app.use(morgan('dev')); // log every request to the console
 
 app.use(cookieParser());
@@ -75,7 +77,7 @@ function ensureAuthenticated(req, res, next) {
 
 //define my route
 app.get('/', ensureAuthenticated, function(req, res) {
-	res.render('admin');
+	res.render('index');
 });
 
 app.get('/auth/sso/callback',function(req,res,next) {               
@@ -92,7 +94,7 @@ app.get('/failure', function(req, res) {
 app.listen(port);
 */
 
-var appEnv = cfenv.getAppEnv();
+
 app.listen(appEnv.port, '0.0.0.0', function() {
 
     // print a message when the server starts listening
