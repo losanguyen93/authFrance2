@@ -40,7 +40,7 @@ var client_secret = ssoConfig.credentials.secret;
 var authorization_url = ssoConfig.credentials.authorizationEndpointUrl;
 var token_url = ssoConfig.credentials.tokenEndpointUrl;
 var issuer_id = ssoConfig.credentials.issuerIdentifier;
-var callback_url = 'https://admin-demosso.mybluemix.net:443/auth/sso/callback';        
+var callback_url = 'https://authfrance.mybluemix.net:443/auth/sso/callback';        
 
 var OpenIDConnectStrategy = require('passport-idaas-openidconnect').IDaaSOIDCStrategy;
 var Strategy = new OpenIDConnectStrategy({
