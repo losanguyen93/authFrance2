@@ -1,15 +1,35 @@
-<!DOCTYPE html>
-<html ng-app="app">
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="/javascripts/angular.min.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-resource.min.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-route.min.js"></script>
-    <script type="text/javascript" src="/javascripts/app.js"></script>
-  </head>
-  <body>
-  	{{message}}
-    <ng-view></ng-view>
-  </body>
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<% include partials/page/head.ejs %>
+	</head>
+
+	<body class="">
+		<section id="banner_top">
+			<div class="inner">
+				<h2>Admin - Supervisor</h2>
+			</div>
+		</section>
+
+		<!-- section  -->
+		<section>
+			<h3 class="label-form">Manager Section</h4>
+	
+			<p class="label-form">Select</p>
+		 
+	 		<select name="deleteselect" id="deleteselect">
+  				<option value="documents">document 1</option>
+  				<option value="documents">document 2</option>
+			</select>
+			<br/>
+			
+			<button type="submit" value="Access" class="button special" id="captcha">Access</button>
+			<br/><br/> 
+	
+		</section>
+
+		<!-- Scripts -->
+		<% include partials/page/scripts.ejs %>
+	</body>
 </html>
+
